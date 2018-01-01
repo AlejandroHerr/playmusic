@@ -339,14 +339,26 @@ PlayMusic.prototype.getStream = function(id, callback) {
  * @param maxResults int - max number of results to return
  * @param callback function(err, searchResults) - success callback
  */
-PlayMusic.prototype.search = function (text, maxResults, callback) {
+PlayMusic.prototype.search = function (text, ...args) {
     var that = this;
+    var options = args.concat();
+
+    if(options.length === 0) {
+        throw new Error('Callback function is required');
+    }
+    var callback = options.pop();
+    var criteria =options[1] || '1, 2, 3, 4, 6';
+    var maxResults = options[0] || 5;
+
+    console.log(criteria, maxResults);
+
     var qp = {
         q: text,
-        ct: '1,2,3,4,5,6,7,8,9',
-        "max-results": maxResults
+        ct: criteria,
+        "max-results": 5,
     };
     var qstring = querystring.stringify(qp);
+    console.log(qstring);
     this.request({
         method: "GET",
         url: this._baseURL + 'query?' + qstring
@@ -362,6 +374,7 @@ PlayMusic.prototype.search = function (text, maxResults, callback) {
  */
 PlayMusic.prototype.getPlayLists = function (callback) {
     var that = this;
+
     this.request({
         method: "POST",
         url: this._baseURL + 'playlistfeed'
