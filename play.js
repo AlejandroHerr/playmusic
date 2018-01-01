@@ -336,7 +336,8 @@ PlayMusic.prototype.getStream = function(id, callback) {
  * Searches for All Access tracks.
  *
  * @param text string - search text
- * @param maxResults int - max number of results to return
+ * @param maxResults int - optional argument, max number of results to return
+ * @param criteria string - optional argument, specifying the sear chcriteria(s)
  * @param callback function(err, searchResults) - success callback
  */
 PlayMusic.prototype.search = function (text, ...args) {
