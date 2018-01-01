@@ -344,13 +344,12 @@ PlayMusic.prototype.search = function (text, ...args) {
     var options = args.concat();
 
     if(options.length === 0) {
-        throw new Error('Callback function is required');
+        throw new Error("Callback function is required");
     }
-    var callback = options.pop();
-    var criteria =options[1] || '1, 2, 3, 4, 6';
-    var maxResults = options[0] || 5;
 
-    console.log(criteria, maxResults);
+    var callback = options.pop();
+    var criteria =options[1] || "1, 2, 3, 4, 6";
+    var maxResults = options[0] || 5;
 
     var qp = {
         q: text,
@@ -358,7 +357,7 @@ PlayMusic.prototype.search = function (text, ...args) {
         "max-results": 5,
     };
     var qstring = querystring.stringify(qp);
-    console.log(qstring);
+
     this.request({
         method: "GET",
         url: this._baseURL + 'query?' + qstring
